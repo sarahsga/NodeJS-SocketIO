@@ -5,7 +5,7 @@ var io = require('socket.io')(http);
 app.set('port', process.env.PORT || 3000);
 
 app.get('/', function(req, res){
-    res.sendfile('index.html');
+    res.end('<h1>Hello World</h1>');
 });
 
 io.on('connection', function(socket){
