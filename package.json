@@ -1,0 +1,19 @@
+{
+  "name": "my_server",
+  "version": "1.0.0",
+  "description": "A simple chatroom built in [Node.js](http://nodejs.org) using [Express](http://expressjs.com) + [Socket.IO](http://socket.io/).",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "4.6.1",
+    "jade": "1.4.2",
+    "socket.io": "1.0.6",
+    "underscore": "1.6.0",
+    "body-parser": "1.4.3"
+  }
+}
