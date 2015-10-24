@@ -20,6 +20,10 @@ io.on('connection', function(socket){
     });
 });
 
+io.on('connect', function(socket) {
+    console.log('connect not connection' )
+})
+
 http.listen(port, function(){
     console.log('listening on *: ' + port);
 });
