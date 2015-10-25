@@ -21,6 +21,16 @@ io.on('connection', function(socket){
 
     var disconnect_handler = function(){
         console.log('user disconnected');
+        var flag = false;
+        for(var i = 0; i < users.length; i++)
+        {
+            if(users[i][SOCKET].id == socket.id)
+            {
+                flag = true;
+                users.splice(i,1);
+                break;
+            }
+        }
     }
     var chat_message_handler = function(msg){
         console.log('message: ' + msg);
