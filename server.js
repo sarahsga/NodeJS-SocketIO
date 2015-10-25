@@ -6,7 +6,7 @@ var port = process.env.PORT || 3000;
 app.set('port', port);
 
 app.get('/', function(req, res){
-    res.sendfile('index.html')
+    res.end("Welcome")
 });
 
 io.on('connection', function(socket){
@@ -18,11 +18,11 @@ io.on('connection', function(socket){
         console.log('message: ' + msg);
         io.emit('chat message return', "Sweet " + msg);
     });
-});
 
-io.on('connect', function(socket) {
-    console.log('connect not connection' )
-})
+    socket.on('find or add user', function(jsonObj) {
+        console.log('a user add or find request received');
+    })
+});
 
 http.listen(port, function(){
     console.log('listening on *: ' + port);
