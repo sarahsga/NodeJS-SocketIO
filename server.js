@@ -16,7 +16,7 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 
-    console.log('a user connected ' + ++count);
+    console.log('a user connected ' + ++count + " " +socket.id());
 
     var disconnect_handler = function(){
         console.log('user disconnected');
