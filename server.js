@@ -16,7 +16,7 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
 
-    console.log('a user connected ' + ++count + " " +socket.id());
+    console.log('a user connected ' + ++count + " " +socket.id);
 
     var disconnect_handler = function(){
         console.log('user disconnected');
@@ -27,7 +27,7 @@ io.on('connection', function(socket){
     }
 
     var find_or_add_user_handler = function(jsonObj) {
-        console.log('a user add or find request received from ' + socket.id() + JSON.stringify(jsonObj));
+        console.log('a user add or find request received from ' + socket.id + JSON.stringify(jsonObj));
         var msg = "";
         var obj = {}
         if (users.indexOf(jsonObj[USERNAME]) == -1) {
