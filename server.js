@@ -31,6 +31,7 @@ io.on('connection', function(socket){
     function sendHeartbeat(){
         setTimeout(sendHeartbeat, 25000);
         io.sockets.emit('ping', { beat : 1 });
+        console.log("emitted ping")
     }
 
 
