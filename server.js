@@ -18,8 +18,6 @@ io.on('connection', function(socket){
 
     console.log('a user connected ' + ++count);
 
-
-
     var disconnect_handler = function(){
         console.log('user disconnected');
     }
@@ -29,12 +27,16 @@ io.on('connection', function(socket){
     }
 
     var find_or_add_user_handler = function(jsonObj) {
-        console.log('a user add or find request received ' + JSON.stringify(jsonObj));
+        console.log('a user add or find request received from ' + socket.id() + JSON.stringify(jsonObj));
         var msg = "";
+        var obj = {}
         if (users.indexOf(jsonObj[USERNAME]) == -1) {
             console.log("User not found")
+            obj[USERNAME] = jsonObj[USERNAME];
+            //obj["socketId"] = socket.id();
             users.push(jsonObj[USERNAME]);
             msg = "Your username has been added";
+
         }
         else {
             console.log("user found")
