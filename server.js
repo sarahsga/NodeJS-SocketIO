@@ -8,6 +8,7 @@ var users = [];
 var USERNAME = "username";
 var PHONE_NUMBER = "phoneNumber";
 var MESSAGE = "message";
+var SOCKET = "socket";
 app.set('port', port);
 
 app.get('/', function(req, res){
@@ -44,7 +45,7 @@ io.on('connection', function(socket){
         if (flag == false) {
             console.log("User not found")
             obj[USERNAME] = jsonObj[USERNAME];
-            obj["socket"] = jsonObj[socket.id];
+            obj[] = jsonObj[socket.id];
             //obj["socketId"] = socket.id();
             users.push(obj);
             msg = "Your username has been added";
@@ -66,7 +67,26 @@ io.on('connection', function(socket){
     var send_message_handler = function(jsonObj) {
         var username = jsonObj[USERNAME];
         var message = jsonObj[MESSAGE];
+        var requestedSocket;
+        var flag = false;
+        var userId = -1;
         console.log("Message received " + message)
+
+        for(var i = 0; i < users.length; i++)
+        {
+            if(users[i][USERNAME] == jsonObj[USERNAME])
+            {
+                flag = true;
+                requestedSocket = users[i][SOCKET];
+                userId = requestedSocket.id;
+                break;
+            }
+        }
+
+        if (flag) {
+            io.sockets.socket(requestedSocket.id).emit("receive message", { msg : message});
+        }
+
 
     }
 
