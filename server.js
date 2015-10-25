@@ -25,15 +25,18 @@ io.on('connection', function(socket){
 
     socket.on('find or add user', function(jsonObj) {
         console.log('a user add or find request received ' + JSON.stringify(jsonObj));
+        var msg = "";
         if (users.indexOf(jsonObj[USERNAME]) == -1) {
             console.log("User not found")
             users.push(jsonObj[USERNAME]);
+            msg = "Your username has been added";
         }
         else {
             console.log("user found")
+            msg = "You were found in our database";
         }
 
-        socket.emit("acknowledge", {msg: "You have been connected.. message from server"});
+        socket.emit("userAddedOrFound", {msg: msg});
     })
 
     socket.on('pong', function(data){
