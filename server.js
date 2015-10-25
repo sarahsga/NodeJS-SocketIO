@@ -41,7 +41,7 @@ io.on('connection', function(socket){
             }
         }
 
-        if (flag) {
+        if (flag == false) {
             console.log("User not found")
             obj[USERNAME] = jsonObj[USERNAME];
             obj["socket"] = jsonObj[socket.id];
