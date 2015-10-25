@@ -29,13 +29,26 @@ io.on('connection', function(socket){
     var find_or_add_user_handler = function(jsonObj) {
         console.log('a user add or find request received from ' + socket.id + JSON.stringify(jsonObj));
         var msg = "";
-        var obj = {}
-        if (users.indexOf(jsonObj[USERNAME]) == -1) {
+        var obj = {};
+        var flag = false;
+
+        for(var i = 0; i < users.length; i++)
+        {
+            if(users[i][USERNAME] == jsonObj[USERNAME])
+            {
+                flag = true;
+                break;
+            }
+        }
+
+        if (flag) {
             console.log("User not found")
             obj[USERNAME] = jsonObj[USERNAME];
+            obj["socket"] = jsonObj[socket.id];
             //obj["socketId"] = socket.id();
-            users.push(jsonObj[USERNAME]);
+            users.push(obj);
             msg = "Your username has been added";
+
 
         }
         else {
@@ -54,6 +67,7 @@ io.on('connection', function(socket){
         var username = jsonObj[USERNAME];
         var message = jsonObj[MESSAGE];
         console.log("Message received " + message)
+
     }
 
 
