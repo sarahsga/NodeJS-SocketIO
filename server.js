@@ -45,7 +45,7 @@ io.on('connection', function(socket){
         if (flag == false) {
             console.log("User not found")
             obj[USERNAME] = jsonObj[USERNAME];
-            obj[] = jsonObj[socket.id];
+            obj[SOCKET] = jsonObj[socket.id];
             //obj["socketId"] = socket.id();
             users.push(obj);
             msg = "Your username has been added";
