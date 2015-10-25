@@ -20,7 +20,7 @@ io.on('connection', function(socket){
     });
 
     socket.on('find or add user', function(jsonObj) {
-        console.log('a user add or find request received');
+        console.log('a user add or find request received ' + JSON.stringify(jsonObj));
     })
 
     socket.on('pong', function(data){
