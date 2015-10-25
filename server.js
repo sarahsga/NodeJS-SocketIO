@@ -25,7 +25,7 @@ io.on('connection', function(socket){
 
     socket.on('find or add user', function(jsonObj) {
         console.log('a user add or find request received ' + JSON.stringify(jsonObj));
-        if (users.indexOf(username) == -1) {
+        if (users.indexOf(jsonObj[USERNAME]) == -1) {
             console.log("User not found")
             users.push(username);
         }
