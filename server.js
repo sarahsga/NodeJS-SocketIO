@@ -84,7 +84,7 @@ io.on('connection', function(socket){
         }
 
         if (flag) {
-            io.sockets.socket(requestedSocket.id).emit("receive message", { msg : message});
+            requestedSocket.emit("receive message", { msg : message})
         }
 
 
