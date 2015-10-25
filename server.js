@@ -3,6 +3,10 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var count = 0;
 var port = process.env.PORT || 3000;
+var users = [];
+
+var USERNAME = "username";
+var PHONE_NUMBER = "phoneNumber";
 app.set('port', port);
 
 app.get('/', function(req, res){
@@ -21,6 +25,15 @@ io.on('connection', function(socket){
 
     socket.on('find or add user', function(jsonObj) {
         console.log('a user add or find request received ' + JSON.stringify(jsonObj));
+        if (users.indexOf(username) == -1) {
+            console.log("User not found")
+            users.push(username);
+        }
+        else {
+            console.log("user found")
+        }
+
+        socket.emit("acknowledge", {msg: "You have been connected.. message from server"});
     })
 
     socket.on('pong', function(data){
