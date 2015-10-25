@@ -7,6 +7,7 @@ var users = [];
 
 var USERNAME = "username";
 var PHONE_NUMBER = "phoneNumber";
+var MESSAGE = "message";
 app.set('port', port);
 
 app.get('/', function(req, res){
@@ -14,16 +15,20 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
+
     console.log('a user connected ' + ++count);
-    socket.on('disconnect', function(){
+
+
+
+    var disconnect_handler = function(){
         console.log('user disconnected');
-    });
-    socket.on('chat message', function(msg){
+    }
+    var chat_message_handler = function(msg){
         console.log('message: ' + msg);
         io.emit('chat message return', "Sweet " + msg);
-    });
+    }
 
-    socket.on('find or add user', function(jsonObj) {
+    var find_or_add_user_handler = function(jsonObj) {
         console.log('a user add or find request received ' + JSON.stringify(jsonObj));
         var msg = "";
         if (users.indexOf(jsonObj[USERNAME]) == -1) {
@@ -37,11 +42,25 @@ io.on('connection', function(socket){
         }
 
         socket.emit("userAddedOrFound", {msg: msg});
-    })
+    }
 
-    socket.on('pong', function(data){
+    var pong_handler = function(data){
         console.log("Pong received from client");
-    });
+    }
+
+    var send_message_handler = function(jsonObj) {
+        var username = jsonObj[USERNAME];
+        var message = jsonObj[MESSAGE];
+        console.log("Message received " + message)
+    }
+
+
+    socket.on('disconnect', disconnect_handler)
+        .on('chat message', chat_message_handler)
+        .on('find or add user', find_or_add_user_handler)
+        .on('pong', pong_handler)
+        .on('send message', send_message_handler)
+
     setTimeout(sendHeartbeat, 25000);
 
     function sendHeartbeat(){
