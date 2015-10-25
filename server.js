@@ -22,7 +22,20 @@ io.on('connection', function(socket){
     socket.on('find or add user', function(jsonObj) {
         console.log('a user add or find request received');
     })
+
+    socket.on('pong', function(data){
+        console.log("Pong received from client");
+    });
+    setTimeout(sendHeartbeat, 25000);
+
+    function sendHeartbeat(){
+        setTimeout(sendHeartbeat, 25000);
+        io.sockets.emit('ping', { beat : 1 });
+    }
+
+
 });
+
 
 http.listen(port, function(){
     console.log('listening on *: ' + port);
